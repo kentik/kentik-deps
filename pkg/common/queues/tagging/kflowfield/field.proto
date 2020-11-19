@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package kflowfield;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+// Device holds the current state of a customer's device
+message KFlowField {
+	uint32 ID = 1;
+	uint32 CompanyID = 2;
+	string Name = 3;
+  enum ColumnTypeEnum {
+    UNKNOWN_TYPE = 0;
+    STRING = 1;
+    ADDRESS = 2;
+    UINT64 = 3;
+    UINT32 = 4;
+  }
+  ColumnTypeEnum ColumnType = 4;
+  enum StatusEnum {
+    UNKNOWN_STATUS = 0;
+    ACTIVE = 1;
+    DELETED = 2;
+  }
+  StatusEnum Status = 5;
+  bool IsPublic = 6;
+  int64 EditDateUnixNano = 7;
+  string Usage = 8;
+}

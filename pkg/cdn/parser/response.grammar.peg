@@ -1,0 +1,94 @@
+package parser
+
+import "net"
+
+type Result Peg {
+    IP []net.IP
+    Cname []string
+}
+
+result <- ";"* subpart ( ";" subpart? )* !.
+
+subpart <- whitespace*
+           (cname
+           / ipv4
+           / ipv6
+           / soa
+           / ns
+           / ptr
+           / mx
+           / txt)
+
+cname <- <domain_name> "/" cname_suffix	{ p.storeCname(text) }
+			/ url "/" "/"? cname_suffix		# shouldn't happen, but does
+
+# Close enough for our purposes.  So long as nobody's actual url includes
+# "/CNAME".  Sigh.
+url <- ("http" "s"? "://")? text ("/" !cname_suffix text)*
+
+whitespace <- " "
+
+# Arpa lookups (and others) can have embedded /'s.  So in this case an embedded
+# / is any / not followed by a suffix.  Note that !suffixes consumes no input.
+domain_name <- (text ("/" !suffixes)?)+
+
+# Technically _ is not valid for a domain name, but guess what, it's in our
+# lookup result feed.  :(
+
+# Can't get various utf8 characters to work, so try a different approach
+# text <- [A-Za-z0-9.$!_#&%+*'(),솩Á©\-]+
+# and just accept anything but / and ;
+text <- [^/;]+
+
+# cname_suffix <- 'CNAME' / 'CNAM' / 'CNA' / 'CN' / 'C'
+cname_suffix <- 'CNAME'
+
+ipv4 <- <dotted_quad> "/" ipv4_suffix              { p.storeIP(text) }
+        # IPv4 addresses in a AAAA dns record.  "Happy Eyeballs", I kid you
+        # not.  Google it.  It looks like this: "::173.0.140.210/AAAA"
+        / "::" <dotted_quad> "/" ipv6_suffix       { p.storeIP(text) }
+ipv4_suffix <- "A"
+
+ipv6 <- <ipv6_ip> "/" ipv6_suffix			{ p.storeIP(text) }
+ipv6_ip <- "::ffff:" dotted_quad
+           / hexdigits? (":" hexdigits)* ("::" hexdigits?)? (":" hexdigits)*
+hexdigits <- [a-fA-F0-9]+
+# ipv6_suffix <- 'AAAA' / 'AAA' / 'AA' / 'A'
+ipv6_suffix <- 'AAAA'
+
+dotted_quad <- octet "." octet "." octet "." octet
+octet <- "25" [0-5]
+         / "2" [0-4][0-9]
+         / [0-1][0-9][0-9]
+         / [0-9][0-9]
+         / [0-9]
+
+soa <- domain_name? "/" soa_suffix
+# soa_suffix <- "SOA" / "SO" / "S"
+soa_suffix <- "SOA"
+
+ns <- domain_name? "/" ns_suffix
+# ns_suffix <- "NS" / "N"
+ns_suffix <- "NS"
+
+ptr <- domain_name? "/" ptr_suffix
+# ptr_suffix <- "PTR" / "PT" / "P"
+ptr_suffix <- "PTR"
+
+mx <- domain_name? "/" mx_suffix
+# mx_suffix <- "MX" / "M"
+mx_suffix <- "MX"
+
+txt <- ("/" txt_suffix) / (. txt)
+# txt put another way (which doesn't work, but is clearer): .* "/" txt_suffix
+txt_suffix <- "TXT"
+
+suffixes <- cname_suffix
+            / ipv4_suffix
+            / ipv6_suffix
+            / soa_suffix
+            / ns_suffix
+            / ptr_suffix
+            / mx_suffix
+            / txt_suffix
+

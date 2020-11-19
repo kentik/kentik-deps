@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package request;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+// FlowRequest represents a test case for tagging: a flow to be tagged
+message FlowRequest {
+	// CompanyID that should process this message, or 0 for all
+	uint32 CompanyID = 1;
+
+	// DeviceID that should process this message, or 0 for all
+	uint32 DeviceID = 2;
+
+	// Host that should process this message, or "" for all
+	string Host = 3;
+
+	// ScenarioName holds the test scenario name
+	string ScenarioName = 4;
+
+	// Serialized flow (github.com/kentik/proto/kflow/CHF)
+	bytes SerializedFlow = 5;
+
+	// Field we're looking at
+	uint32 FieldID = 6;
+
+	// Expected value in this field (converted to string if necessary)
+	string ExpectedFieldValue = 7;
+
+	// the shard number this request is meant for, or -1 for all.
+	// - devices with multiple shards have shard numbers (1,N)
+	// - devices with one shard have shard number 0
+ 	int32 ShardNumber = 8;
+}

@@ -1,0 +1,6 @@
+@Library('kentik-build-tools') _
+
+env.CHECKOUT_DIR = 'src/github.com/kentik/common'
+
+kbtJob {
+}

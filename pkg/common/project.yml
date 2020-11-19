@@ -1,0 +1,6 @@
+name: common
+description: Kentik common go bits
+version: 1.0
+target:
+  build: cd src/github.com/kentik/common && make vendor build
+  test: export TEST_ROOT=\${PWD} && cd src/github.com/kentik/common && TEST_PREFIX="github.com/kentik" kbt go-tests
