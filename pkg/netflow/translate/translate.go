@@ -9,7 +9,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/kentik/netflow/session"
+	"github.com/kentik/kentik-deps/pkt/netflow/session"
 )
 
 // Builtin dictionary of information elements

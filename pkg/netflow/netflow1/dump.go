@@ -3,7 +3,7 @@ package netflow1
 import (
 	"fmt"
 
-	"github.com/kentik/netflow/read"
+	"github.com/kentik/kentik-deps/pkt/netflow/read"
 )
 
 func Dump(p *Packet) {

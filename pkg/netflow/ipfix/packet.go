@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kentik/netflow/read"
-	"github.com/kentik/netflow/session"
+	"github.com/kentik/kentik-deps/pkt/netflow/read"
+	"github.com/kentik/kentik-deps/pkt/netflow/session"
 )
 
 // IPFIX

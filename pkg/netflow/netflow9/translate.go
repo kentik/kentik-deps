@@ -3,8 +3,8 @@ package netflow9
 import (
 	"fmt"
 
-	"github.com/kentik/netflow/session"
-	"github.com/kentik/netflow/translate"
+	"github.com/kentik/kentik-deps/pkt/netflow/session"
+	"github.com/kentik/kentik-deps/pkt/netflow/translate"
 )
 
 type TranslatedField struct {
