@@ -7,7 +7,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/kentik/kentik-deps/pkt/netflow/read"
+	"github.com/kentik/kentik-deps/pkg/netflow/read"
 )
 
 const (

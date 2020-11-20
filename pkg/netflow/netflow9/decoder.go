@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/kentik/kentik-deps/pkt/netflow/session"
+	"github.com/kentik/kentik-deps/pkg/netflow/session"
 )
 
 func errInvalidVersion(v uint16) error {

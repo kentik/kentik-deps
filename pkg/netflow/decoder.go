@@ -6,13 +6,13 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/kentik/kentik-deps/pkt/netflow/ipfix"
-	"github.com/kentik/kentik-deps/pkt/netflow/netflow1"
-	"github.com/kentik/kentik-deps/pkt/netflow/netflow5"
-	"github.com/kentik/kentik-deps/pkt/netflow/netflow6"
-	"github.com/kentik/kentik-deps/pkt/netflow/netflow7"
-	"github.com/kentik/kentik-deps/pkt/netflow/netflow9"
-	"github.com/kentik/kentik-deps/pkt/netflow/session"
+	"github.com/kentik/kentik-deps/pkg/netflow/ipfix"
+	"github.com/kentik/kentik-deps/pkg/netflow/netflow1"
+	"github.com/kentik/kentik-deps/pkg/netflow/netflow5"
+	"github.com/kentik/kentik-deps/pkg/netflow/netflow6"
+	"github.com/kentik/kentik-deps/pkg/netflow/netflow7"
+	"github.com/kentik/kentik-deps/pkg/netflow/netflow9"
+	"github.com/kentik/kentik-deps/pkg/netflow/session"
 )
 
 // Decoder for NetFlow messages.

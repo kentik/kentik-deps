@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/kentik/kentik-deps/pkt/netflow/session"
+	"github.com/kentik/kentik-deps/pkg/netflow/session"
 )
 
 func TestObservationDomainSeparation(t *testing.T) {

@@ -2,7 +2,7 @@
 package trkdsess
 
 import (
-	"github.com/kentik/kentik-deps/pkt/netflow/session"
+	"github.com/kentik/kentik-deps/pkg/netflow/session"
 )
 
 var sessions = []session.Session{}
